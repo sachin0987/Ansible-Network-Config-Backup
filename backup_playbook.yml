@@ -1,0 +1,60 @@
+---
+- name: "PLAY 1: Get the Data From Cisco IOSXR Device"
+  hosts: xrdevices
+  connection: network_cli
+  tasks:
+    - name: "TASK 1 : Get the device config"
+      iosxr_command:
+        commands: "show running-config"
+      register: cli_result_config
+
+    - name: "TASK 2 : Create outputs/ folder"
+      file:
+        path: "outputs/IOS-XR"  #Path of the create folder
+        state: directory
+      run_once: true
+
+    - name: "TASK 3 : Write config to file"
+      copy:
+        content: "{{ cli_result_config.stdout[0] }}\n" #Get content from output from Task 1
+        dest: "outputs/IOS-XR/{{inventory_hostname}}.cfg"
+
+- name: "PLAY 2: Get the Data From IOS Device"
+  hosts: iosdevices
+  connection: network_cli
+  tasks:
+    - name: "TASK 1: Get the device config"
+      ios_command:
+        commands: "show running-config"
+      register: cli_result_config
+
+    - name: "TASK 2 : Create outputs/ folder"
+      file:
+        path: "outputs/IOS"  #Path of the create folder
+        state: directory
+      run_once: true
+
+    - name: "TASK 3 : Write config to file"
+      copy:
+        content: "{{ cli_result_config.stdout[0] }}\n" #Get content from output from Task 1
+        dest: "outputs/JUNOS/{{inventory_hostname}}.cfg"
+
+- name: "PLAY 3: Get the Data From XE Device"
+  hosts: xedevices
+  connection: network_cli
+  tasks:
+    - name: "TASK 1 : Get the device config"
+      iosxe_exec_command:
+        commands: "show running-config"
+      register: cli_result_config
+
+    - name: "TASK 2 : Create outputs/ folder"
+      file:
+        path: "outputs/IOS-XE"  #Path of the create folder
+        state: directory
+      run_once: true
+
+    - name: "TASK 3 : Write config to file"
+      copy:
+        content: "{{ cli_result_config.stdout[0] }}\n" #Get content from output from Task 1
+        dest: "outputs/JUNOS/{{inventory_hostname}}.cfg"
