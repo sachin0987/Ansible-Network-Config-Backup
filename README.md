@@ -1,14 +1,14 @@
 Cisco-Device-Backup-Ansible
 
 This solution is for CISCO IOS,IOS-XR and IOS-XE Platfrom to get network backup using Ansible.Uses Ansible to fetch Running Config from the network 
-ans store localy them .
+and store them localy.
 
 Use Case ::
 
 Cisco IOS,IOS-XR and IOS-XE Network configuration backup.
 
 System Requirenments::
-    1) Python 
+    1) Python 3
         In linux systems python is default enabled ,if not then install python first .
         
     2) Ansible 
@@ -36,7 +36,7 @@ Tool Installation::
     Follow the below steps::
 
     1) Clone the repo on Ansible Server machine .
-      In case of Linux ::
+       In case of Linux ::
        git clone https://github.com/sachin0987/Network-Automation-Python.git
 
     2) Go to the directory :
